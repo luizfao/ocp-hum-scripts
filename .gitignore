@@ -4,3 +4,13 @@ humusr.key
 humusr.csr
 humusr.crt
 
+humanitec_agent_private_key.pem
+humanitec_agent_public_key.pem
+
+ocp-agent.yaml
+ocp-k8s-cluster.yaml
+luiz-ocp-agent.yaml
+luiz-ocp-k8s-cluster.yaml
+
+
+
