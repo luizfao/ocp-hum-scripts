@@ -36,7 +36,7 @@ oc get csr ${USR_NAME} -o jsonpath='{.status.certificate}'| base64 -d > ${CRT_FI
 echo make sure expiration date works for you:
 openssl x509 -inform pem -noout -text -in ${CRT_FILE} | grep 'Not After'
 
-echo adding policy of cluster admin to ${USR_NAME} ( ignore user not found warning )
+echo adding policy of cluster admin to ${USR_NAME} - ignore user not found warning
 oc adm policy add-cluster-role-to-user cluster-admin ${USR_NAME}
 #oc create rolebinding ${USR_NAME}-admin-binding --clusterrole=cluster-admin --user=${USR_NAME}
 # maybe try with self-provisioner role?

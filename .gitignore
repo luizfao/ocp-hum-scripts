@@ -1,2 +1,6 @@
 0-humanitec.cfg.sh
 
+humusr.key
+humusr.csr
+humusr.crt
+
