@@ -1,0 +1,31 @@
+# set variables to be used in the set of scripts
+
+# your humanitec organization id
+export HUMANITEC_ORG=
+
+# grab an humanitec service user token 
+# https://developer.humanitec.com/platform-orchestrator/security/service-users/
+export HUMANITEC_TOKEN=
+
+# your cluster details https://api.ocp.example.com:6443
+export CLUSTER_API=
+export OCP_USER=
+export OCP_PWD=
+
+# give a name to your agent and cluster humanitec resources
+export AGENT_ID=ocp-agent
+export K8S_DEFINITION_ID=ocp-k8s
+export K8S_DEFINITION_NAME=ocp-k8s
+
+# below values can be kept default, they're used to generate certificates
+export USR_NAME=humusr
+export KEY_FILE=${USR_NAME}.key
+export CSR_FILE=${USR_NAME}.csr
+export CRT_FILE=${USR_NAME}.crt
+export CRT_EXP_SEC=2592000 # about 30 days - user cert expiration in seconds
+export SECRET_STORE_ID=humanitec-vault
+export SECRETS_PATH=secret
+
+#oc login ${CLUSTER_API} -u ${OCP_USER} -p ${OCP_PWD}
+#humctl login
+
