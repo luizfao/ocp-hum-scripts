@@ -17,14 +17,17 @@ export AGENT_ID=ocp-agent
 export K8S_DEFINITION_ID=ocp-k8s
 export K8S_DEFINITION_NAME=ocp-k8s
 
+# hashicorp vault configuration - if you already have hashicorp key vault installed, skip script 7 and configure the namespace below
+export VAULT_NAMESPACE=vault
+export SECRETS_PATH=hum-secret
+export SECRET_STORE_ID=humanitec-vault
+
 # below values can be kept default, they're used to generate certificates
 export USR_NAME=humusr
 export KEY_FILE=${USR_NAME}.key
 export CSR_FILE=${USR_NAME}.csr
 export CRT_FILE=${USR_NAME}.crt
 export CRT_EXP_SEC=2592000 # about 30 days - user cert expiration in seconds
-export SECRET_STORE_ID=humanitec-vault
-export SECRETS_PATH=secret
 
 #oc login ${CLUSTER_API} -u ${OCP_USER} -p ${OCP_PWD}
 #humctl login

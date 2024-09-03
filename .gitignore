@@ -12,5 +12,7 @@ ocp-k8s-cluster.yaml
 luiz-ocp-agent.yaml
 luiz-ocp-k8s-cluster.yaml
 
-
+policy-read-write.hcl
+policy-write.hcl
+score-busybox.yaml
 

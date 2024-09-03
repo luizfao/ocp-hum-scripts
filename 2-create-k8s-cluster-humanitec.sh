@@ -41,4 +41,5 @@ echo create cluster humctl exit code=$?
 #}'
 #echo add criteria humctl exit code=$?
 
+echo done
 
