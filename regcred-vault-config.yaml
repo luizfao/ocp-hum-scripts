@@ -1,0 +1,52 @@
+# This Resource Definition pulls credentials for a container image registry from a secret store
+# and creates a Kubernetes Secret of kubernetes.io/dockerconfigjson type
+apiVersion: entity.humanitec.io/v1b1
+kind: Definition
+metadata:
+  id: regcred-vault-config
+entity:
+  driver_type: humanitec/template
+  name: regcred-vault-config
+  type: config
+  criteria:
+  - class: default
+    # This res_id must be used from a referencing Resource Definition to request this config Resource
+    res_id: regcred-vault
+  driver_inputs:
+    # These secret references read the credentials from a secret store
+    secret_refs:
+      password:
+        ref: regcred-vault-password
+        # Replace this value with the secret store id that's supplying the password
+        store: humanitec-vault
+      username:
+        ref: regcred-vault-username
+        # Replace this value with the secret store id that's supplying the username
+        store: humanitec-vault
+    values:
+      secret_name: regcred-vault
+      # Replace this value with the servername of your registry
+      server: quay-sg6ws.apps.cluster-sg6ws.sg6ws.sandbox1399.opentlc.com
+      templates:
+        # The init template is used to prepare the "dockerConfigJson" content
+        init: |
+          dockerConfigJson:
+            auths:
+              {{ .driver.values.server | quote }}:
+                username: {{ .driver.secrets.username | toRawJson }}
+                password: {{ .driver.secrets.password | toRawJson }}
+        manifests:
+          # The manifests template creates the Kubernetes Secret
+          # which can then be used in the workload "imagePullSecrets"
+          regcred-vault-secret.yaml:
+            data: |
+              apiVersion: v1
+              kind: Secret
+              metadata:
+                name: {{ .driver.values.secret_name }}
+              data:
+                .dockerconfigjson: {{ .init.dockerConfigJson | toRawJson | b64enc }}
+              type: kubernetes.io/dockerconfigjson
+            location: namespace
+        outputs: |
+          secret_name: {{ .driver.values.secret_name }}
