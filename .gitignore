@@ -1,3 +1,5 @@
+rhdh
+
 0-humanitec.cfg.sh
 
 humusr.key
@@ -6,6 +8,9 @@ humusr.crt
 
 humanitec_agent_private_key.pem
 humanitec_agent_public_key.pem
+
+humanitec_operator_private_key.pem
+humanitec_operator_public_key.pem
 
 ocp-agent.yaml
 ocp-k8s-cluster.yaml
