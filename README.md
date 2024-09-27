@@ -7,5 +7,5 @@ Designed for ephemeral clusters for testing integration between OCP and Humanite
 
 Make a copy of script 0 without .example in the name and configure variables in script 0.
 
-Execute scripts in the order they're named 1-10.
+Execute scripts in the order they're named 0-10.
 
