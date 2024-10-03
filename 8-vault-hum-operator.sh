@@ -39,7 +39,8 @@ echo creating vault policy policy-write.hcl
 vault policy write secret-write-only policy-write.hcl
 
 # create auth token for operator
-export VAULT_TOKEN_OPERATOR=$(vault token create -policy=secret-${OPERATOR_ACCESS_LEVEL}-ttl=30d -field token)
+# if recreating, remember to set the OPERATOR_ACCESS_LEVEL variable from above
+export VAULT_TOKEN_OPERATOR=$(vault token create -policy=secret-${OPERATOR_ACCESS_LEVEL} -ttl=30d -field token)
 
 echo creating secret with token for humanitec operator
 # create a secret with the token
@@ -52,7 +53,7 @@ oc create secret generic vault-token \
 ###
 # oc patch secret vault-token \
 #   -n humanitec-operator-system \
-#   --patch="{\"data\": { \"token\": \"$(echo -n ${VAULT_TOKEN_OPERATOR} | base64 -w0)\"}}"
+#   --patch="{\"data\": { \"token\": \"$(echo -n ${VAULT_TOKEN_OPERATOR} | base64)\"}}"
 ###
 
 echo creating humanitec operator vault token SecretStore ${SECRET_STORE_ID} as default store
