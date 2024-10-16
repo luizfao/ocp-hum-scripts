@@ -1,3 +1,4 @@
+#!/bin/bash
 # install humanitec-operator
 # https://developer.humanitec.com/integration-and-extensions/humanitec-operator/installation/
 set -euo pipefail
@@ -11,6 +12,7 @@ helm install humanitec-operator \
 
 # Operator secret keys - Config auth for drivers https://developer.humanitec.com/integration-and-extensions/humanitec-operator/installation/#configure-authentication-for-drivers
 # Generate a new private key
+echo create operator private and public keys, and secret to enable authentication for drivers
 openssl genpkey -algorithm RSA -out humanitec_operator_private_key.pem -pkeyopt rsa_keygen_bits:4096
 
 # Extract the public key from the private key generated in the previous command
@@ -27,7 +29,11 @@ humctl api post /orgs/${HUMANITEC_ORG}/keys \
 
 echo register operator public key exit code=$?
 
-oc get pods -n humanitec-operator-system
+# sometimes operator pod goes out of memory with default memory limit, increase it to avoid this error
+echo increase operator memory limit
+oc -n humanitec-operator-system set resources deployment humanitec-operator-controller-manager --limits memory=256Mi
+
+oc -n humanitec-operator-system get pods
 
 echo done
 

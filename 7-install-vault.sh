@@ -1,3 +1,4 @@
+#!/bin/bash
 # install hashicorp key vault
 # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/openshift
 set -euo pipefail

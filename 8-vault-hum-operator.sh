@@ -1,3 +1,4 @@
+#!/bin/bash
 # configure hashicorp vault secrets manager for humanitec operator
 # https://developer.humanitec.com/integration-and-extensions/humanitec-operator/how-tos/connect-to-hashicorp-vault/
 set -euo pipefail
@@ -77,7 +78,7 @@ spec:
 EOF
 
 echo confirm it was created
-oc get secretstores -n humanitec-operator-system
+oc get secretstore.humanitec.io -n humanitec-operator-system
 
 # create orq token
 export VAULT_TOKEN_ORCHESTRATOR=$(vault token create -policy=secret-write-only -ttl=30d -field token)

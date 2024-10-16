@@ -1,3 +1,4 @@
+#!/bin/bash
 # create the cluster and register
 # https://developer.humanitec.com/integration-and-extensions/containerization/kubernetes/
 set -euo pipefail
@@ -35,11 +36,11 @@ humctl apply -f ./${K8S_DEFINITION_ID}-cluster.yaml
 echo create cluster humctl exit code=$?
 
 # add an criteria to the cluster
-#humctl api post /orgs/$HUMANITEC_ORG/resources/defs/${K8S_DEFINITION_ID}/criteria \
-#-d '{ 
-#  "env_id": "ocp" 
-#}'
-#echo add criteria humctl exit code=$?
+humctl api post /orgs/$HUMANITEC_ORG/resources/defs/${K8S_DEFINITION_ID}/criteria \
+-d '{ 
+ "env_id": "'${K8S_DEFINITION_ID}'" 
+}'
+echo add criteria humctl exit code=$?
 
 echo done
 

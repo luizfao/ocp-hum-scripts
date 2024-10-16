@@ -1,3 +1,4 @@
+#!/bin/bash
 # generate certificates and user to be used by humanitec orquestrator to connect to the cluster
 # these activities are in the pre-reqs
 # https://developer.humanitec.com/integration-and-extensions/containerization/kubernetes/
@@ -41,5 +42,13 @@ oc adm policy add-cluster-role-to-user cluster-admin ${USR_NAME}
 #oc create rolebinding ${USR_NAME}-admin-binding --clusterrole=cluster-admin --user=${USR_NAME}
 # maybe try with self-provisioner role?
 # to troubleshoot: https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#add-to-kubeconfig
+
+# sometimes cert and keys are not matching (needs more investigation)
+echo "validate if certificate file and public key matches, if they dont match (exit code 1) please re-run this script"
+
+openssl x509 -noout -modulus -in ${CRT_FILE} | openssl md5 > /tmp/${CRT_FILE}-modulus.txt
+openssl rsa -noout -modulus -in ${KEY_FILE} | openssl md5 > /tmp/${KEY_FILE}-modulus.txt
+diff /tmp/crt.pub /tmp/key.pub
+echo diff return code=$?
 
 echo done

@@ -1,3 +1,4 @@
+#!/bin/bash
 # install humanitec agent
 # it is possible to install via helm, but using manifests as some changes are needed due to ocp arq
 # https://developer.humanitec.com/integration-and-extensions/humanitec-agent/installation/
